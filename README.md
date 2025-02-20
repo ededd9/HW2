@@ -20,55 +20,5 @@ open another terminal and move into /backend and type node server.js
 
 Go to http://localhost:3001/ and refresh, data should show up
 
-Don't get what you meant by api call names(maybe when i try to fetch data from the api?)
-
-All in App.js
-// Add stuudent
-const handleCreate = async () => {
-try {
-await axios.post("http://localhost:3001/students", newStudent);
-setNewStudent({ name: "", id: "", points: "" });
-fetchStudents();
-} catch (e) {
-console.error(e);
-}
-};
-
-// Update student
-const handleSave = async () => {
-try {
-await axios.put(
-`http://localhost:3001/students/${editingStudent.id}`,
-editingStudent
-);
-setEditingStudent(null);
-fetchStudents();
-} catch (e) {
-console.error(e);
-}
-};
-
-//Delete student
-const handleDelete = async (id) => {
-try {
-await axios.delete(`http://localhost:3001/students/${id}`);
-fetchStudents();
-} catch (e) {
-console.error(e);
-}
-};
-
-//handle input changes
-const handleChange = (e, isNewStudent = false) => {
-const { name, value } = e.target;
-const updatedValue = name === "points" ? Number(value) : value;
-//updating data of new studen t being added or of the student that is being edited
-if (isNewStudent) {
-setNewStudent((prev) => ({ ...prev, [name]: updatedValue }));
-} else {
-setEditingStudent((prev) => ({ ...prev, [name]: updatedValue }));
-}
-};
-
-Or in server.js, http://localhost:3000/students to see all students
-http://localhost:3000/student[id] to see a specific student by id
+IN BLACKBOARD SUBMISSION, IN THE UPLOADED DOCUMENT I INCLUDED SCREENSHOTS SHOWING
+SUCCESSFUL CRUD OPERATIONS WITH POSTMAN
