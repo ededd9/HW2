@@ -18,7 +18,7 @@ Now to actually start:
 move into /frontend directory and type npm start
 open another terminal and move into /backend and type node server.js
 
-Go to http://localhost:3000/ and refresh, data should show up
+Go to http://localhost:3001/ and refresh, data should show up
 
 Don't get what you meant by api call names(maybe when i try to fetch data from the api?)
 
