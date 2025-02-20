@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+TECH STACK: MERN
+MongoDB
+Express JS
+React
+Node JS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+How to run, make sure to have the following modules installed before anything:
+npm install express
+THIS IS IMPORTANT: USE THIS VERSION OF MONGOOSE OR CODE WILL NOT CONNECT TO DB
+npm install mongoose@8.5.2
 
-## Available Scripts
+npm install body-parser
+npm install cors
+npm install dotenv
+npm install axios
 
-In the project directory, you can run:
+Now to actually start:
+move into /frontend directory and type npm start
+open another terminal and move into /backend and type node server.js
 
-### `npm start`
+Go to http://localhost:3000/ and refresh, data should show up
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Don't get what you meant by api call names(maybe when i try to fetch data from the api?)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+All in App.js
+// Add stuudent
+const handleCreate = async () => {
+try {
+await axios.post("http://localhost:3001/students", newStudent);
+setNewStudent({ name: "", id: "", points: "" });
+fetchStudents();
+} catch (e) {
+console.error(e);
+}
+};
 
-### `npm test`
+// Update student
+const handleSave = async () => {
+try {
+await axios.put(
+`http://localhost:3001/students/${editingStudent.id}`,
+editingStudent
+);
+setEditingStudent(null);
+fetchStudents();
+} catch (e) {
+console.error(e);
+}
+};
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+//Delete student
+const handleDelete = async (id) => {
+try {
+await axios.delete(`http://localhost:3001/students/${id}`);
+fetchStudents();
+} catch (e) {
+console.error(e);
+}
+};
 
-### `npm run build`
+//handle input changes
+const handleChange = (e, isNewStudent = false) => {
+const { name, value } = e.target;
+const updatedValue = name === "points" ? Number(value) : value;
+//updating data of new studen t being added or of the student that is being edited
+if (isNewStudent) {
+setNewStudent((prev) => ({ ...prev, [name]: updatedValue }));
+} else {
+setEditingStudent((prev) => ({ ...prev, [name]: updatedValue }));
+}
+};
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Or in server.js, http://localhost:3000/students to see all students
+http://localhost:3000/student[id] to see a specific student by id
