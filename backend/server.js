@@ -55,9 +55,14 @@ connectToDatabase();
 app.get("/students", async (req, res) => {
   try {
     const students = await Student.find();
-    res.json(students);
+    res.json({
+      message: "Students retrieved successfully",
+      data: students,
+    });
   } catch (err) {
-    res.status(500).json({});
+    res.status(500).json({
+      message: "Error in retrieving students",
+    });
   }
 });
 //GET a student by ID
@@ -67,9 +72,9 @@ app.get("/students/:id", async (req, res) => {
     if (!student) {
       return res.status(404).json({});
     }
-    res.json(student);
+    res.json({ message: "Student retrieved successfully", data: student });
   } catch (err) {
-    res.status(500).json({});
+    res.status(500).json({ message: "Error in retrieving student" });
   }
 });
 
@@ -85,9 +90,9 @@ app.post("/students", async (req, res) => {
 
     const newStudent = new Student({ name, id, points });
     await newStudent.save();
-    res.status(201).json(newStudent);
+    res.status(201).json({ message: "Student created", data: newStudent });
   } catch (err) {
-    res.status(400).json({});
+    res.status(400).json({ message: "Failed to create" });
   }
 });
 
@@ -111,9 +116,9 @@ app.put("/students/:id", async (req, res) => {
       return res.status(404).json({});
     }
 
-    res.json(updatedStudent);
+    res.json({ message: "Student updated", data: updatedStudent });
   } catch (err) {
-    res.status(400).json({});
+    res.status(400).json({ message: "Student failed to update" });
   }
 });
 
@@ -126,7 +131,7 @@ app.delete("/students/:id", async (req, res) => {
     if (!deletedStudent) {
       return res.status(404).json();
     }
-    res.status(200).json();
+    res.status(200).json({ message: "Student deleted" });
   } catch (err) {
     res.status(500).json(err);
   }
